@@ -80,4 +80,6 @@ The script is designed to be easily customizable:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-Build from boredom and endless search for minimalistic todo list on web by me (sambit) and claude
+## Credits
+
+Built from boredom and endless search for minimalistic todo list on web by me (sambit) and claude
