@@ -80,11 +80,4 @@ The script is designed to be easily customizable:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Created with the help of Claude AI
-- Inspired by minimalist CLI tools
+Build from boredom and endless search for minimalistic todo list on web by me (sambit) and claude
