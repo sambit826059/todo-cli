@@ -2,8 +2,6 @@
 
 A simple, lightweight CLI todo list manager for Arch Linux (and other Unix-like systems).
 
-![Todo CLI](https://raw.githubusercontent.com/your-username/todo-cli/main/screenshots/todo-cli.png)
-
 ## Features
 
 - ✅ Single command usage with intuitive subcommands
@@ -17,7 +15,7 @@ A simple, lightweight CLI todo list manager for Arch Linux (and other Unix-like 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/todo-cli.git
+git clone git@github.com:sambit826059/todo-cli.git
 cd todo-cli
 
 # Make the script executable
