@@ -59,7 +59,7 @@ list_tasks() {
     return
   fi
 
-  echo "Your tasks:"
+  echo -e "\e[1;37mYour tasks:\e[0m"  # Bright white header
   local count=1
   while IFS= read -r line; do
     # Check if task is in today's list
@@ -70,6 +70,9 @@ list_tasks() {
       is_today_task=true
     fi
 
+    # Print task number in blue
+    echo -ne "  \e[1;34m$count.\e[0m "
+
     # Extract priority if it exists
     if [[ "$line" =~ ^([^|]+)\|PRIORITY:([^:]+):(.*)$ ]]; then
       id="${BASH_REMATCH[1]}"
@@ -79,24 +82,25 @@ list_tasks() {
       # Add color based on priority
       case "$priority" in
       "high")
-        echo -ne "  \e[1;31m$count. $task \e[0m[\e[1;31mHIGH\e[0m]"
+        echo -ne "\e[1;31m$task\e[0m \e[41m[\e[1;37mHIGH\e[0m\e[41m]\e[0m"
         ;;
       "medium")
-        echo -ne "  \e[1;33m$count. $task \e[0m[\e[1;33mMEDIUM\e[0m]"
+        echo -ne "\e[1;33m$task\e[0m \e[43m[\e[1;30mMEDIUM\e[0m\e[43m]\e[0m"
         ;;
       "low")
-        echo -ne "  \e[1;32m$count. $task \e[0m[\e[1;32mLOW\e[0m]"
+        echo -ne "\e[1;32m$task\e[0m \e[42m[\e[1;30mLOW\e[0m\e[42m]\e[0m"
         ;;
       esac
     else
       id=$(echo "$line" | cut -d'|' -f1)
       task=$(echo "$line" | cut -d'|' -f2-)
-      echo -ne "  $count. $task"
+      # Print regular tasks in default color with slight emphasis
+      echo -ne "\e[1;37m$task\e[0m"
     fi
 
-    # Add today indicator
+    # Add today indicator with background
     if [ "$is_today_task" = true ]; then
-      echo -e " \e[1;36m[TODAY]\e[0m"
+      echo -e " \e[46m[\e[1;37mTODAY\e[0m\e[46m]\e[0m"
     else
       echo ""
     fi
@@ -112,7 +116,7 @@ list_today_tasks() {
     return
   fi
 
-  echo "Today's tasks:"
+  echo -e "\e[1;36mToday's tasks:\e[0m"  # Cyan header
   local count=1
 
   # Loop through today file
@@ -124,6 +128,9 @@ list_today_tasks() {
       line_id=$(echo "$line" | cut -d'|' -f1)
 
       if [ "$line_id" = "$task_id" ]; then
+        # Print task number in blue
+        echo -ne "  \e[1;34m$count.\e[0m "
+
         # Extract priority if it exists
         if [[ "$line" =~ ^([^|]+)\|PRIORITY:([^:]+):(.*)$ ]]; then
           priority="${BASH_REMATCH[2]}"
@@ -132,18 +139,19 @@ list_today_tasks() {
           # Add color based on priority
           case "$priority" in
           "high")
-            echo -e "  \e[1;31m$count. $task \e[0m[\e[1;31mHIGH\e[0m]"
+            echo -e "\e[1;31m$task\e[0m \e[41m[\e[1;37mHIGH\e[0m\e[41m]\e[0m"
             ;;
           "medium")
-            echo -e "  \e[1;33m$count. $task \e[0m[\e[1;33mMEDIUM\e[0m]"
+            echo -e "\e[1;33m$task\e[0m \e[43m[\e[1;30mMEDIUM\e[0m\e[43m]\e[0m"
             ;;
           "low")
-            echo -e "  \e[1;32m$count. $task \e[0m[\e[1;32mLOW\e[0m]"
+            echo -e "\e[1;32m$task\e[0m \e[42m[\e[1;30mLOW\e[0m\e[42m]\e[0m"
             ;;
           esac
         else
           task=$(echo "$line" | cut -d'|' -f2-)
-          echo -e "  $count. $task"
+          # Print regular tasks in bright white
+          echo -e "\e[1;37m$task\e[0m"
         fi
         break
       fi
