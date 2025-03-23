@@ -82,25 +82,24 @@ list_tasks() {
       # Add color based on priority
       case "$priority" in
       "high")
-        echo -ne "\e[1;31m$task\e[0m \e[41m[\e[1;37mHIGH\e[0m\e[41m]\e[0m"
+        echo -ne "\e[1;31m$task\e[0m \e[1;37;41m HIGH \e[0m"  # Bold red text with white on red background
         ;;
       "medium")
-        echo -ne "\e[1;33m$task\e[0m \e[43m[\e[1;30mMEDIUM\e[0m\e[43m]\e[0m"
+        echo -ne "\e[1;33m$task\e[0m \e[1;30;43m MEDIUM \e[0m"  # Bold yellow text with black on yellow background
         ;;
       "low")
-        echo -ne "\e[1;32m$task\e[0m \e[42m[\e[1;30mLOW\e[0m\e[42m]\e[0m"
+        echo -ne "\e[1;32m$task\e[0m \e[1;37;42m LOW \e[0m"  # Bold green text with white on green background
         ;;
       esac
     else
       id=$(echo "$line" | cut -d'|' -f1)
       task=$(echo "$line" | cut -d'|' -f2-)
-      # Print regular tasks in default color with slight emphasis
       echo -ne "\e[1;37m$task\e[0m"
     fi
 
-    # Add today indicator with background
+    # Add today indicator with skeletal color
     if [ "$is_today_task" = true ]; then
-      echo -e " \e[46m[\e[1;37mTODAY\e[0m\e[46m]\e[0m"
+      echo -e " \e[38;5;80m[TODAY]\e[0m"  # Skeletal blue-green
     else
       echo ""
     fi
@@ -139,13 +138,13 @@ list_today_tasks() {
           # Add color based on priority
           case "$priority" in
           "high")
-            echo -e "\e[1;31m$task\e[0m \e[41m[\e[1;37mHIGH\e[0m\e[41m]\e[0m"
+            echo -e "\e[1;31m$task\e[0m \e[1;37;41m HIGH \e[0m"  # Bold red text with white on red background
             ;;
           "medium")
-            echo -e "\e[1;33m$task\e[0m \e[43m[\e[1;30mMEDIUM\e[0m\e[43m]\e[0m"
+            echo -e "\e[1;33m$task\e[0m \e[1;30;43m MEDIUM \e[0m"  # Bold yellow text with black on yellow background
             ;;
           "low")
-            echo -e "\e[1;32m$task\e[0m \e[42m[\e[1;30mLOW\e[0m\e[42m]\e[0m"
+            echo -e "\e[1;32m$task\e[0m \e[1;37;42m LOW \e[0m"  # Bold green text with white on green background
             ;;
           esac
         else
